@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
+import Layout from './components/Layout';
+import UserProfilePage from './pages/UserProfilPages';
+import TaskDetailPage from './pages/TaskDetailPage';
 import './index.css';
 
 function App() {
@@ -24,6 +27,20 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+          >
+            <Route index element={<Navigate to="/dashboard" replace />} /> {/* Redirect '/' ke '/dashboard' */}
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="profile" element={<UserProfilePage />} />
+            <Route path="tasks/:taskId" element={<TaskDetailPage />} />
+          </Route>
+          
           <Route
             path="/dashboard"
             element={

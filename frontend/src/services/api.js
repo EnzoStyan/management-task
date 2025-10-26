@@ -49,4 +49,8 @@ export const logoutUser = () => {
     return apiClient.post('auth/logout');
 }
 
+export const getTaskById = (taskId) => {
+  return apiClient.get(`/tasks/${taskId}`);
+};
+
 export default apiClient;
