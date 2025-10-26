@@ -20,11 +20,10 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="min-h-screen bg-gray-50 text-gray-900"> {/* Contoh: bg-gray-50 */}
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-
           <Route
             path="/dashboard"
             element={
@@ -33,13 +32,11 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/"
             element={isAuthenticated() ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />}
           />
-
-          <Route path="*" element={<div>404 Not Found</div>} />
+          <Route path="*" element={<div className="p-10 text-center">404 Not Found</div>} />
         </Routes>
       </div>
     </Router>

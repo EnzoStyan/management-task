@@ -44,107 +44,55 @@ function RegisterPage() {
 };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center text-gray-900 dark:text-white">
-          Register New Account
+    <div className="flex items-center justify-center min-h-screen px-4 py-8"> {/* Tambah padding Y */}
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg border border-gray-200">
+        <h1 className="text-2xl font-bold text-center text-gray-800">
+          Create Account
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           {errors.general && <p className="text-red-500 text-sm">{errors.general}</p>}
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Name
-            </label>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
             <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white`}
+              id="name" name="name" type="text" required value={name} onChange={(e) => setName(e.target.value)}
+              className={`mt-1 block w-full px-3 py-2 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900`}
             />
             {errors.name && <p className="mt-1 text-red-500 text-xs">{errors.name[0]}</p>}
           </div>
           <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Username
-            </label>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
             <input
-              id="username"
-              name="username"
-              type="text"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border ${errors.username ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white`}
+              id="username" name="username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)}
+              // Styling input light mode
+              className={`mt-1 block w-full px-3 py-2 border ${errors.username ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900`}
             />
-             {errors.username && <p className="mt-1 text-red-500 text-xs">{errors.username[0]}</p>}
+            {errors.username && <p className="mt-1 text-red-500 text-xs">{errors.username[0]}</p>}
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Email address
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
             <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-               className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white`}
+              id="email" name="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+              // Styling input light mode
+              className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900`}
             />
-             {errors.email && <p className="mt-1 text-red-500 text-xs">{errors.email[0]}</p>}
+            {errors.email && <p className="mt-1 text-red-500 text-xs">{errors.email[0]}</p>}
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Password
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white`}
+              id="password" name="password" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)}
+              className={`mt-1 block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900`}
             />
-             {errors.password && <p className="mt-1 text-red-500 text-xs">{errors.password[0]}</p>}
+            {errors.password && <p className="mt-1 text-red-500 text-xs">{errors.password[0]}</p>}
           </div>
-           <div>
-            <label
-              htmlFor="passwordConfirmation"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Confirm Password
-            </label>
+          <div>
+            <label htmlFor="passwordConfirmation" className="block text-sm font-medium text-gray-700">Confirm Password</label>
             <input
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={passwordConfirmation}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white"
+              id="passwordConfirmation" name="passwordConfirmation" type="password" autoComplete="new-password" required value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}
+              
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900"
             />
-            {/* Error konfirmasi biasanya ditangani oleh backend dalam field 'password' */}
           </div>
-
           <div>
             <button
               type="submit"
@@ -155,7 +103,7 @@ function RegisterPage() {
             </button>
           </div>
         </form>
-        <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-center text-gray-600">
           Already have an account?{' '}
           <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
             Login here
