@@ -1,6 +1,6 @@
-# Proyek Sistem Manajemen Tugas (Tes Nexa) 📝
+# Proyek Sistem Manajemen
 
-Halo! Ini adalah aplikasi web Fullstack yang dirancang untuk membantu karyawan mengelola tugas harian mereka. Proyek ini dibuat menggunakan Laravel untuk backend dan React untuk frontend (akan segera menyusul), sebagai bagian dari proses seleksi Fullstack Developer di Nexa.
+Halo! Ini adalah aplikasi web Fullstack yang dirancang untuk membantu karyawan mengelola tugas harian mereka. Proyek ini dibuat menggunakan Laravel untuk backend dan React untuk frontend.
 
 ## Teknologi yang Digunakan 💻
 
@@ -28,8 +28,6 @@ Anda bisa menggunakan akun ini untuk mencoba login:
 * **Email:** `johndoe@example.com`
 * **Password:** `password123`
     *(lebih baik daftarkan user baru)*
-
-## Cara Menjalankan Proyek Ini 🚀
 
 ## Cara Menjalankan Proyek Ini 🚀
 
