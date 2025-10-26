@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-// import { FiGrid, FiUser, FiLogOut } from 'react-icons/fi'; // Contoh ikon
 
 function Sidebar({ onLogout }) {
   const location = useLocation();
@@ -21,7 +20,6 @@ function Sidebar({ onLogout }) {
           to="/dashboard"
           className={location.pathname === '/dashboard' ? activeLinkClasses : linkClasses}
         >
-          {/* <FiGrid className="w-5 h-5" /> */}
           <span className="mx-4 font-medium">Dashboard</span>
         </Link>
 
@@ -29,12 +27,8 @@ function Sidebar({ onLogout }) {
           to="/profile"
           className={location.pathname === '/profile' ? activeLinkClasses : linkClasses}
         >
-          {/* <FiUser className="w-5 h-5" /> */}
           <span className="mx-4 font-medium">Profile</span>
         </Link>
-
-        {/* Tambahkan link lain jika perlu */}
-
       </nav>
 
       <div className="px-2 py-4 border-t border-gray-200 dark:border-slate-700">
@@ -42,7 +36,6 @@ function Sidebar({ onLogout }) {
             onClick={onLogout}
             className={`${linkClasses} w-full text-left`}
           >
-            {/* <FiLogOut className="w-5 h-5" /> */}
             <span className="mx-4 font-medium">Logout</span>
           </button>
       </div>

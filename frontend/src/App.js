@@ -23,7 +23,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 text-gray-900"> {/* Contoh: bg-gray-50 */}
+      <div className="min-h-screen bg-gray-50 text-gray-900">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -35,12 +35,12 @@ function App() {
             </ProtectedRoute>
           }
           >
-            <Route index element={<Navigate to="/dashboard" replace />} /> {/* Redirect '/' ke '/dashboard' */}
+            <Route index element={<Navigate to="/dashboard" replace />} /> 
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="profile" element={<UserProfilePage />} />
             <Route path="tasks/:taskId" element={<TaskDetailPage />} />
           </Route>
-          
+
           <Route
             path="/dashboard"
             element={

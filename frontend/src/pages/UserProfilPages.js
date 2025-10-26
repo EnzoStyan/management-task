@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import apiClient from '../services/api'; // Gunakan apiClient langsung atau buat fungsi getMe()
+import apiClient from '../services/api';
 import useTheme from '../hooks/useTheme';
 
 function UserProfilePage() {
@@ -13,15 +13,14 @@ function UserProfilePage() {
       setLoading(true);
       setError('');
       try {
-        const response = await apiClient.get('/auth/me'); // Panggil endpoint /me
+        const response = await apiClient.get('/auth/me'); 
         setUser(response.data);
       } catch (err) {
         console.error("Error fetching user profile:", err);
         setError('Failed to load user profile.');
-         // Optional: Handle 401 Unauthorized (redirect to login)
          if (err.response && err.response.status === 401) {
              localStorage.removeItem('token');
-             window.location.href = '/login'; // Force reload/redirect
+             window.location.href = '/login'; 
          }
       } finally {
         setLoading(false);
@@ -34,7 +33,6 @@ function UserProfilePage() {
     <div className="bg-white dark:bg-slate-800 shadow rounded-lg p-6 border border-gray-200 dark:border-slate-700">
       <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">User Profile</h1>
 
-      {/* Tombol Theme Toggle di sini juga */}
       <div className="mb-4">
         <button
           onClick={toggleTheme}
@@ -60,7 +58,6 @@ function UserProfilePage() {
             <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Email</label>
             <p className="mt-1 text-lg text-gray-900 dark:text-white">{user.email}</p>
           </div>
-          {/* Tambahkan info lain atau tombol Edit jika perlu */}
         </div>
       )}
     </div>

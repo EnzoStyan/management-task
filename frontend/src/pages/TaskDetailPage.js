@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getTaskById } from '../services/api'; // Impor fungsi baru
+import { getTaskById } from '../services/api';
 
 function TaskDetailPage() {
-  const { taskId } = useParams(); // Ambil taskId dari URL
+  const { taskId } = useParams();
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,7 +38,7 @@ function TaskDetailPage() {
       }
     };
     fetchTask();
-  }, [taskId, navigate]); // Tambahkan navigate ke dependency
+  }, [taskId, navigate]);
 
   const getStatusColor = (status) => {
     if (status === 'Done') return 'bg-green-100 text-green-800 dark:bg-green-700 dark:text-green-100';
@@ -89,16 +89,12 @@ function TaskDetailPage() {
                   <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Created At</label>
                   <p className="mt-1 text-gray-900 dark:text-white">{formatDate(task.created_at)}</p>
                </div>
-               {/* Tambahkan info 'created_by' jika backend mengirimnya */}
-               {/*
                <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Created By</label>
                   <p className="mt-1 text-gray-900 dark:text-white">{task.creator?.name || 'Unknown'}</p>
                </div>
-               */}
+
            </div>
-           {/* Tombol Edit bisa ditambahkan di sini, arahkan ke form edit */}
-           {/* <button onClick={() => navigate(`/edit-task/${task.id}`)} ... >Edit Task</button> */}
         </div>
       )}
     </div>

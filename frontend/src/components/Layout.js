@@ -24,10 +24,8 @@ function Layout() {
       <Sidebar onLogout={handleLogout} />
 
       <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-slate-900">
-        {/* Tombol Theme Toggle bisa diletakkan di header dalam main content jika mau */}
-        {/* <div className="px-6 py-4 flex justify-end"> ... tombol toggle ... </div> */}
         <div className="container mx-auto px-6 py-8">
-          <Outlet /> {/* Halaman (Dashboard, Profile, TaskDetail) akan dirender di sini */}
+          <Outlet />
         </div>
       </main>
     </div>

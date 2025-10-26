@@ -44,7 +44,7 @@ function RegisterPage() {
 };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 py-8"> {/* Tambah padding Y */}
+    <div className="flex items-center justify-center min-h-screen px-4 py-8">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg border border-gray-200">
         <h1 className="text-2xl font-bold text-center text-gray-800">
           Create Account
@@ -63,7 +63,6 @@ function RegisterPage() {
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
             <input
               id="username" name="username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)}
-              // Styling input light mode
               className={`mt-1 block w-full px-3 py-2 border ${errors.username ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900`}
             />
             {errors.username && <p className="mt-1 text-red-500 text-xs">{errors.username[0]}</p>}
@@ -72,7 +71,6 @@ function RegisterPage() {
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
             <input
               id="email" name="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-              // Styling input light mode
               className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-gray-900`}
             />
             {errors.email && <p className="mt-1 text-red-500 text-xs">{errors.email[0]}</p>}

@@ -89,7 +89,6 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        // Membuat token baru berdasarkan token lama (yang masih valid)
         return $this->respondWithToken(auth('api')->refresh());
     }
 
@@ -104,9 +103,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            // Mengambil TTL (Time To Live) token dari config jwt.php (dalam menit), dikali 60 jadi detik
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'user' => auth('api')->user() // Sertakan juga data user
+            'user' => auth('api')->user()
         ]);
     }
 }
