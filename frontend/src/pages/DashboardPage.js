@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTask, createTask, updateTask, deleteTask, logoutUser } from '../services/api';
+import { getTask, createTask, updateTask, deleteTask, logoutUser } from '../services/api'; // Pastikan 'getTask' (singular) diimpor
 import TaskForm from '../components/TaskForm';
 
 function DashboardPage() {
@@ -12,11 +12,23 @@ function DashboardPage() {
   const [editingTask, setEditingTask] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [filterStatus, setFilterStatus] = useState('');
+  const [sortBy, setSortBy] = useState('created_at');
+  const [sortDir, setSortDir] = useState('desc');
+
   const fetchTasks = async () => {
-    setIsLoading(true);
     setError('');
     try {
-      const response = await getTask();
+      const params = {};
+      if (filterStatus) {
+        params.status = filterStatus;
+      }
+      if (sortBy) {
+        params.sort_by = sortBy;
+        params.sort_dir = sortDir;
+      }
+      console.log('Fetching tasks with params:', params); // Keep for debugging
+      const response = await getTask(params); // Gunakan 'getTask' (singular)
       setTasks(response.data);
     } catch (err) {
       console.error('Error fetching tasks:', err);
@@ -26,13 +38,20 @@ function DashboardPage() {
         setError('Failed to load tasks. Please try refreshing the page.');
       }
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); 
     }
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetchTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    fetchTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterStatus, sortBy, sortDir]);
 
   const handleLogout = async () => {
     try {
@@ -64,31 +83,16 @@ function DashboardPage() {
     setIsSubmitting(true);
     try {
       if (editingTask && editingTask.id) {
-
-        console.log('Updating Task ID:', editingTask.id);
-        console.log('Data to Update:', taskData);
-
         const response = await updateTask(editingTask.id, taskData);
         setTasks(tasks.map(t => t.id === editingTask.id ? response.data : t));
       } else {
-
-        console.log('Creating Task with Data:', taskData);
-
         const response = await createTask(taskData);
         setTasks([response.data, ...tasks]);
       }
       setShowForm(false);
       setEditingTask(null);
     } catch (submitError) {
-      if (submitError.response) {
-         console.error('Backend Response:', submitError.response.data);
-         console.error('Backend Status:', submitError.response.status);
-         console.error('Backend Headers:', submitError.response.headers);
-      } else if (submitError.request) {
-         console.error('No response received:', submitError.request);
-      } else {
-         console.error('Error setting up request:', submitError.message);
-      }
+      console.error('Error saving task:', submitError);
        return Promise.reject(submitError);
     } finally {
       setIsSubmitting(false);
@@ -149,6 +153,64 @@ function DashboardPage() {
           </button>
         </div>
       )}
+
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
+        <div>
+          <label htmlFor="filterStatus" className="mr-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Filter by Status:
+          </label>
+          <select
+            id="filterStatus"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="p-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm dark:bg-gray-700 dark:text-white"
+          >
+            <option value="">All</option>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+
+        <div>
+          <span className="mr-2 text-sm font-medium text-gray-700 dark:text-gray-300">Sort by:</span>
+          <button
+            onClick={() => {
+              if (sortBy === 'deadline') {
+                setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+              } else {
+                setSortBy('deadline');
+                setSortDir('asc');
+              }
+            }}
+            className={`px-3 py-1 mr-2 border rounded text-sm ${
+              sortBy === 'deadline'
+                ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700'
+                : 'bg-white dark:bg-gray-600 border-gray-300 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-500'
+            }`}
+          >
+            Deadline {sortBy === 'deadline' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+          </button>
+           <button
+            onClick={() => {
+              if (sortBy === 'created_at') {
+                setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+              } else {
+                setSortBy('created_at');
+                setSortDir('desc');
+              }
+            }}
+             className={`px-3 py-1 border rounded text-sm ${
+              sortBy === 'created_at'
+                ? 'bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700'
+                : 'bg-white dark:bg-gray-600 border-gray-300 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-500'
+            }`}
+          >
+            Created Date {sortBy === 'created_at' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
+          </button>
+        </div>
+      </div>
+
 
       {isLoading && <p className="text-center text-gray-500 dark:text-gray-400">Loading tasks...</p>}
       {error && <p className="text-center text-red-500 mb-4">{error}</p>}
