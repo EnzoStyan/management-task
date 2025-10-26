@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: dockerfile
+    container_name: task_manager_backend
+    restart: unless-stopped
+    working_dir: /var/www/backend
+    volumes:
+      - ./backend/var/www/backend
+      - ./backend/storage/logs:/var/www/backend/storage/logs
+    depends_on:
+      - db
+    networks:
+      - networks
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-nexa_task_mgt} 
+      DB_USERNAME: ${DB_USERNAME:-nexa_user}
+      DB_PASSWORD: ${DB_PASSWORD:-nexa_password}
+      APP_KEY: ${APP_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nexa_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app 
+      - /app/node_modules
+    networks:
+      - nexa-network
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+
+  nginx:
+    image: nginx:alpine
+    container_name: nexa_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/backend
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro # Mount konfigurasi Nginx
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - nexa-network
+
+  db:
+    image: mysql:8.0
+    container_name: nexa_db
+    restart: unless-stopped
+    ports:
+      - "33061:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-nexa_task_mgt}
+      MYSQL_USER: ${DB_USERNAME:-nexa_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-nexa_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secret} # Password root database di container
+    volumes:
+      - nexa-db-data:/var/lib/mysql
+    networks:
+      - nexa-network
+
+
+networks:
+  nexa-network:
+    driver: bridge
+
+
+volumes:
+  nexa-db-data:
+    driver: local

@@ -223,7 +223,12 @@ return (
 
           {showForm && (
             <div className="mb-8 p-4 bg-white rounded-lg shadow-md border border-gray-200">
-              <TaskForm /* Props sama */ />
+              <TaskForm 
+              onSubmit={handleFormSubmit} // <-- PASTIKAN NAMA PROP INI BENAR ('onSubmit')
+              initialData={editingTask}
+              onCancel={handleFormCancel}
+              isLoading={isSubmitting} 
+              />
             </div>
           )}
 

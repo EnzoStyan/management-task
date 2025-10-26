@@ -31,6 +31,46 @@ Anda bisa menggunakan akun ini untuk mencoba login:
 
 ## Cara Menjalankan Proyek Ini 🚀
 
+## Cara Menjalankan Proyek Ini 🚀
+
+### A. Menggunakan Docker Compose (Direkomendasikan)
+
+1.  Pastikan Docker dan Docker Compose sudah terinstal di komputermu.
+2.  Clone repository:
+    ```bash
+    git clone https://github.com/EnzoStyan/management-task
+    cd task-management
+    ```
+3.  **Salin Konfigurasi Backend:**
+    ```bash
+    cd backend
+    cp .env.example .env
+    php artisan key:generate
+    php artisan jwt:secret
+    cd ..
+    ```
+    * **Penting:** Salin nilai `APP_KEY` dan `JWT_SECRET` dari `backend/.env` dan masukkan ke dalam file `docker-compose.yml` menggantikan `${APP_KEY}` dan `${JWT_SECRET}`. Atau, buat file `.env` di *root* `task-management/` dan definisikan `APP_KEY` serta `JWT_SECRET` di sana.
+4.  **Build & Jalankan Containers:**
+    ```bash
+    docker-compose up -d --build
+    ```
+    Perintah ini akan membuat *images* dan menjalankan semua *container* di *background*. Tunggu beberapa saat sampai semua *service* siap.
+5.  **Jalankan Migrasi Database di Container:**
+    ```bash
+    docker-compose exec backend php artisan migrate
+    ```
+6.  **Akses Aplikasi:**
+    * Frontend: Buka `http://localhost:3000` di browser.
+    * Backend API: Tersedia di `http://localhost:8000/api`.
+    * Database (jika perlu akses): Host `127.0.0.1`, Port `33061`, User `nexa_user`, Pass `nexa_password`, DB `nexa_task_mgt`.
+
+7.  **Menghentikan Containers:**
+    ```bash
+    docker-compose down
+    ```
+
+### B. Setup Manual (Tanpa Docker)
+
 Berikut langkah-langkah untuk menjalankan aplikasi di lingkungan lokal Anda:
 
 1.  **Clone Repository:**
